@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #bcf4d5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin: 0;
+        }
+
+        h1 span {
+            color: #13f513;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        #cityName {
+            font-size: 24px;
+        }
+
+        script {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather Information for <span id="cityName"></span></h1>
+    <p><strong>Weather Description : </strong> <span id="weatherDescription"></span></p>
+    <p><strong>Temperature : </strong> <span id="temperature"></span> Celsius</p>
+    <p><strong>Current Time : </strong> <span id="currentTime"></span></p>
+    <p><strong>Wind Speed : </strong><span id="windspeed"></span></p>
+
+    <script>
+
+        const apiKey = '4473221cbc5964b7ce874fc001b9970a';
+        const city = prompt("Enter city:");
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const cityNameElement = document.getElementById('cityName');
+                const weatherDescriptionElement = document.getElementById('weatherDescription');
+                const temperatureElement = document.getElementById('temperature');
+                const currentTimeElement = document.getElementById('currentTime');
+                const windseedElement = document.getElementById('windspeed')
+
+                cityNameElement.textContent = city;
+                weatherDescriptionElement.textContent = data.weather[0].description;
+                temperatureElement.textContent = (data.main.temp - 273.15).toFixed(2);
+                currentTimeElement.textContent = new Date().toLocaleString();
+                windseedElement.textContent = (data.wind.speed)
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+</html>
