@@ -1,11 +1,11 @@
-# ใช้รูปภาพของ Nginx เป็นฐาน
+# Use the official Nginx image as the base image
 FROM nginx:latest
 
-# คัดลอกไฟล์ HTML และ JavaScript เข้าไปใน Docker container
-COPY index.html /usr/share/nginx/html/
+# Copy your HTML files into the Nginx default web server directory
+COPY ./index.html /usr/share/nginx/html
 
-# Expose port 80 ของ Nginx
-#EXPOSE 5000
+# Expose port 80 (the default Nginx port)
+EXPOSE 80
 
-# เริ่ม Nginx ในรูปแบบที่สร้างจาก Dockerfile
-CMD ["nginx", "-g", "daemon off;", "--port", "8081"]
+# Start Nginx when the container is run
+CMD ["nginx", "-g", "daemon off;"]
